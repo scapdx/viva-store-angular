@@ -1,0 +1,32 @@
+<section class="auth-wrap">
+  <div class="auth-copy">
+    <h1>Sua conta, seus favoritos e seus dados em um cantinho so.</h1>
+    <p>
+      A autenticacao usa o endpoint oficial da Fake Store API. Para testar,
+      utilize o usuario <strong>mor_2314</strong> e a senha <strong>83r5^_</strong>.
+    </p>
+  </div>
+
+  <form class="auth-panel" (ngSubmit)="login()">
+    <h2>Acessar conta</h2>
+    <p class="helper-text">Depois do login, seus dados cadastrados serao carregados da API.</p>
+
+    <div class="form-field">
+      <label for="username">Usuario</label>
+      <input id="username" name="username" [(ngModel)]="username" autocomplete="username" required />
+    </div>
+
+    <div class="form-field">
+      <label for="password">Senha</label>
+      <input id="password" name="password" type="password" [(ngModel)]="password" autocomplete="current-password" required />
+    </div>
+
+    @if (error()) {
+      <p class="error-text">{{ error() }}</p>
+    }
+
+    <button class="primary-button" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Entrando...' : 'Entrar' }}
+    </button>
+  </form>
+</section>

@@ -1,0 +1,20 @@
+<header class="topbar">
+  <a class="brand" routerLink="/">
+    <span class="brand-mark">VS</span>
+    <span>Viva Store</span>
+  </a>
+
+  <nav class="nav-actions" aria-label="Navegacao principal">
+    <a routerLink="/" class="nav-link">Produtos</a>
+    @if (isLoggedIn()) {
+      <a routerLink="/minha-conta" class="nav-link">Minha conta</a>
+      <button class="nav-button ghost" type="button" (click)="logout()">Sair</button>
+    } @else {
+      <a routerLink="/login" class="nav-button">Entrar</a>
+    }
+  </nav>
+</header>
+
+<main class="app">
+  <router-outlet />
+</main>

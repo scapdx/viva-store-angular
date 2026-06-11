@@ -1,0 +1,77 @@
+@if (loading()) {
+  <section class="state-panel">
+    <div class="loader" aria-hidden="true"></div>
+    <p>Carregando informacoes da loja...</p>
+  </section>
+} @else if (error()) {
+  <section class="state-panel">
+    <h1>Algo saiu do esperado</h1>
+    <p>{{ error() }}</p>
+  </section>
+} @else {
+  <section class="hero">
+    <div>
+      <h1>Achadinhos lindos para renovar seu carrinho.</h1>
+      <p>
+        Uma vitrine delicada conectada a API Fake Store, com precos, categorias,
+        avaliacoes e detalhes completos de cada item.
+      </p>
+    </div>
+
+    <aside class="hero-panel" aria-label="Resumo da loja">
+      <div class="metric"><span>Produtos</span><strong>{{ products().length }}</strong></div>
+      <div class="metric"><span>Categorias</span><strong>{{ categories().length }}</strong></div>
+      <div class="metric"><span>Nota media</span><strong>{{ averageRating() }}</strong></div>
+    </aside>
+  </section>
+
+  <section>
+    <div class="toolbar">
+      <input
+        class="search-box"
+        type="search"
+        placeholder="Buscar produto"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+      />
+
+      <select
+        class="select-box"
+        [ngModel]="selectedCategory()"
+        (ngModelChange)="selectedCategory.set($event)"
+      >
+        <option value="">Todas as categorias</option>
+        @for (category of categories(); track category) {
+          <option [value]="category">{{ category }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="products-grid">
+      @for (product of filteredProducts(); track product.id) {
+        <a class="product-card" [routerLink]="['/produto', product.id]">
+          <div class="product-image">
+            <img [src]="product.image" [alt]="product.title" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <span class="tag">{{ product.category }}</span>
+            <h2 class="product-title">{{ product.title }}</h2>
+            <div class="rating-row">
+              <span class="star">★</span>
+              <strong>{{ product.rating.rate }}</strong>
+              <span>({{ product.rating.count }} avaliacoes)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">{{ formatPrice(product.price) }}</span>
+              <span class="mini-button">Ver produto</span>
+            </div>
+          </div>
+        </a>
+      } @empty {
+        <section class="state-panel">
+          <p>Nenhum produto encontrado.</p>
+        </section>
+      }
+    </div>
+  </section>
+}

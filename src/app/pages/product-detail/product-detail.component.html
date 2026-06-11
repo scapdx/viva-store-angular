@@ -1,0 +1,35 @@
+@if (loading()) {
+  <section class="state-panel">
+    <div class="loader" aria-hidden="true"></div>
+    <p>Carregando informacoes do produto...</p>
+  </section>
+} @else if (error()) {
+  <section class="state-panel">
+    <h1>Algo saiu do esperado</h1>
+    <p>{{ error() }}</p>
+    <a class="nav-button" routerLink="/">Voltar para a loja</a>
+  </section>
+} @else if (product(); as product) {
+  <a class="back-link" routerLink="/">Voltar para produtos</a>
+
+  <section class="detail-layout">
+    <div class="detail-media">
+      <img [src]="product.image" [alt]="product.title" />
+    </div>
+
+    <article class="detail-content">
+      <span class="tag">{{ product.category }}</span>
+      <h1>{{ product.title }}</h1>
+      <p class="detail-description">{{ product.description }}</p>
+
+      <div class="detail-stats">
+        <div class="stat"><span>Codigo</span><strong>#{{ product.id }}</strong></div>
+        <div class="stat"><span>Preco</span><strong>{{ formatPrice(product.price) }}</strong></div>
+        <div class="stat"><span>Avaliacao</span><strong>{{ product.rating.rate }} / 5</strong></div>
+        <div class="stat"><span>Opinioes</span><strong>{{ product.rating.count }}</strong></div>
+      </div>
+
+      <button class="primary-button" type="button">Adicionar ao carrinho</button>
+    </article>
+  </section>
+}

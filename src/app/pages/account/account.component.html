@@ -1,0 +1,39 @@
+@if (loading()) {
+  <section class="state-panel">
+    <div class="loader" aria-hidden="true"></div>
+    <p>Carregando dados da conta...</p>
+  </section>
+} @else if (error()) {
+  <section class="state-panel">
+    <h1>Algo saiu do esperado</h1>
+    <p>{{ error() }}</p>
+    <a class="nav-button" routerLink="/">Voltar para a loja</a>
+  </section>
+} @else if (user(); as user) {
+  <section class="section-title">
+    <h1>Minha conta</h1>
+    <p>Dados cadastrados retornados diretamente pela Fake Store API.</p>
+  </section>
+
+  <section class="account-grid">
+    <article class="info-panel">
+      <h2>Dados pessoais</h2>
+      <div class="data-list">
+        <div class="data-item"><span>Nome</span><strong>{{ user.name.firstname }} {{ user.name.lastname }}</strong></div>
+        <div class="data-item"><span>Usuario</span><strong>{{ user.username }}</strong></div>
+        <div class="data-item"><span>Email</span><strong>{{ user.email }}</strong></div>
+        <div class="data-item"><span>Telefone</span><strong>{{ user.phone }}</strong></div>
+      </div>
+    </article>
+
+    <article class="info-panel">
+      <h2>Endereco</h2>
+      <div class="data-list">
+        <div class="data-item"><span>Cidade</span><strong>{{ user.address.city }}</strong></div>
+        <div class="data-item"><span>Rua</span><strong>{{ user.address.street }}, {{ user.address.number }}</strong></div>
+        <div class="data-item"><span>CEP</span><strong>{{ user.address.zipcode }}</strong></div>
+        <div class="data-item"><span>Geolocalizacao</span><strong>{{ user.address.geolocation.lat }}, {{ user.address.geolocation.long }}</strong></div>
+      </div>
+    </article>
+  </section>
+}
