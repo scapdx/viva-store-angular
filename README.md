@@ -9,8 +9,6 @@ npm install
 npm start
 ```
 
-Depois acesse `http://localhost:4200`.
-
 ## Login de teste
 
 - Usuario: `mor_2314`
